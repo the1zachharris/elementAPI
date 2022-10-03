@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32922.545
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "elementAPI", "elementAPI\elementAPI.csproj", "{D66F4C7C-17F9-4AAF-BAE1-8769CBBCAE52}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D66F4C7C-17F9-4AAF-BAE1-8769CBBCAE52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66F4C7C-17F9-4AAF-BAE1-8769CBBCAE52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66F4C7C-17F9-4AAF-BAE1-8769CBBCAE52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66F4C7C-17F9-4AAF-BAE1-8769CBBCAE52}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6A03F3D-EA64-41D9-A655-695E7EE27012}
+	EndGlobalSection
+EndGlobal
