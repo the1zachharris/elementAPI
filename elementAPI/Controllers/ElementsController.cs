@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using elementAPI.models;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using Newtonsoft.Json;
+using System.Xml.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace elementAPI.Controllers
 {
@@ -13,44 +18,54 @@ namespace elementAPI.Controllers
     [ApiController]
     public class ElementsController : ControllerBase
     {
-        private readonly elementContext _context;
 
-        public ElementsController(elementContext context)
+        private readonly IWebHostEnvironment _hostingEnvironment;
+
+        public ElementsController(IWebHostEnvironment hostingEnvironment)
         {
-            _context = context;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: api/Elements
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Element>>> GetElements()
+        public List<Element> GetElements()
         {
-            return await _context.Elements.ToListAsync();
+
+            var rootPath = _hostingEnvironment.ContentRootPath; //get the root path
+
+            var fullPath = Path.Combine(rootPath, "MOCK_DATA.json"); //combine the root path with that of our json file
+
+            var data = System.IO.File.ReadAllText(fullPath); //read all the content inside the file
+
+            var elements = JsonConvert.DeserializeObject<List<Element>>(data);
+
+            if (elements == null || elements.Count == 0) return null;
+
+            return elements;
         }
 
         // GET: api/Elements/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Element>> GetElement(int id)
+        public IEnumerable<Element> GetElement(int id)
         {
-            var element = await _context.Elements.FindAsync(id);
 
-            if (element == null)
-            {
-                return NotFound();
-            }
+            var rootPath = _hostingEnvironment.ContentRootPath; //get the root path
+
+            var fullPath = Path.Combine(rootPath, "MOCK_DATA.json"); //combine the root path with that of our json file
+
+            var data = System.IO.File.ReadAllText(fullPath); //read all the content inside the file
+
+            var elements = JsonConvert.DeserializeObject<List<Element>>(data);
+
+            if (elements == null || elements.Count == 0) return null;
+
+            var element = elements.Where(o => o.id == id);
+
+            if (element == null || element.Count() == 0 ) return null;
 
             return element;
         }
 
-        // POST: api/Elements
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<Element>> PostElement(Element element)
-        {
-            _context.Elements.Add(element);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetElement", element);
-        }
     }
 }
